@@ -2,13 +2,35 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>동영상 재생 테스트</title>
+    <title>동영상 재생 테스트 - First</title>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
         body { background-color: #f0f0f0; font-family: sans-serif; padding: 20px; }
-        .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border: 1px solid #ccc; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border: 1px solid #ccc; position: relative; }
         video { width: 100%; background: #000; }
         .info { margin-top: 10px; font-size: 0.9em; color: #666; }
+        
+        /* 홈으로 버튼 스타일 */
+        .home-btn {
+            display: inline-block;
+            margin-bottom: 15px;
+            padding: 8px 16px;
+            background-color: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+        .home-btn:hover {
+            background-color: #5a6268;
+        }
+        .header-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
