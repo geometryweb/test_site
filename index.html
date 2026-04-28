@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>동영상 재생 테스트</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <style>
+        body { background-color: #f0f0f0; font-family: sans-serif; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border: 1px solid #ccc; }
+        video { width: 100%; background: #000; }
+        .info { margin-top: 10px; font-size: 0.9em; color: #666; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>HLS (.ts) 재생 테스트</h1>
+    <video id="video" controls></video>
+    <div class="info">
+        <p>상태: <span id="status">준비 중...</span></p>
+    </div>
+</div>
+
+<script>
+    // 재생할 목록 파일 (.m3u8) 경로
+    // 같은 폴더에 ts 파일들과 m3u8 파일이 있다고 가정합니다.
+    const videoSrc = "async_playwright_list.m3u8"; 
+    const video = document.getElementById("video");
+    const status = document.getElementById("status");
+
+    if (Hls.isSupported()) {
+        const hls = new Hls();
+        hls.loadSource(videoSrc);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, function() {
+            status.innerText = "재생 가능 (HLS.js 사용)";
+        });
+    } 
+    // Safari 등 HLS를 자체 지원하는 브라우저 대응
+    else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+        video.src = videoSrc;
+        video.addEventListener("loadedmetadata", function() {
+            status.innerText = "재생 가능 (Native 지원)";
+        });
+    } else {
+        status.innerText = "이 브라우저는 HLS 재생을 지원하지 않습니다.";
+    }
+</script>
+
+</body>
+</html>
